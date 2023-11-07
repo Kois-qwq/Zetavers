@@ -20,14 +20,17 @@ namespace Zetavers
         public static int StoryProgress = 0;
         public static int Chapter = 0;
         public static bool Fullscreen = false;
+        public static bool InStory = false;
 
         [STAThread]
         public static void Main()
         {
             x.Text = Base_Game_Name;
             x.Size = new Size(1280, 720);
+            x.Icon = new Icon("Zetavers.ico");
             x.KeyPreview = true;
             x.KeyDown += Form_KeyDown;
+            x.MouseClick += Form_MouseClick;
 
             int Form_CenterX = x.ClientSize.Width / 2;
             int Form_CenterY = x.ClientSize.Height / 2;
@@ -37,8 +40,12 @@ namespace Zetavers
             Button_Exit.Text = "Exit";
 
             Title.Location = new Point(Form_CenterX, 0);
+            Label_x.Location = new Point(200, 500);
             Button_Play.Location = new Point(Form_CenterX - Button_Play.Size.Width / 2, Form_CenterY - Button_Play.Size.Height / 2 - Button_Play.Size.Height / 2);
             Button_Exit.Location = new Point(Form_CenterX - Button_Exit.Size.Width / 2, Form_CenterY - Button_Exit.Size.Height / 2 + Button_Exit.Size.Height / 2);
+
+            Title.Size = new Size(200, 20);
+            Label_x.Size = new Size(1000, 200);
 
             Button_Play.Click += new EventHandler(Click_Play);
             Button_Exit.Click += new EventHandler(Exit);
@@ -74,20 +81,55 @@ namespace Zetavers
 
             if (e.KeyCode == Keys.Space)
             {
-                StoryProgress++;
-                LoadDialogue();
+                if (InStory == true)
+                {
+                    StoryProgress++;
+                    LoadDialogue();
+                }
             }
 
             if (e.KeyCode == Keys.Enter)
             {
-                StoryProgress++;
-                LoadDialogue();
+                if (InStory == true)
+                {
+                    StoryProgress++;
+                    LoadDialogue();
+                }
             }
 
             if (e.KeyCode == Keys.Back)
             {
-                StoryProgress--;
-                LoadDialogue();
+                if (InStory == true)
+                {
+                    if (StoryProgress != 0)
+                    {
+                        StoryProgress--;
+                        LoadDialogue();
+                    }
+                }
+            }
+        }
+        private static void Form_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (InStory == true)
+                {
+                    StoryProgress++;
+                    LoadDialogue();
+                }
+            }
+
+            if (e.Button == MouseButtons.Right)
+            {
+                if (InStory == true)
+                {
+                    if (StoryProgress != 0)
+                    {
+                        StoryProgress--;
+                        LoadDialogue();
+                    }
+                }
             }
         }
         private static void Exit(object sender, EventArgs e)
@@ -107,9 +149,8 @@ namespace Zetavers
             x.Controls.Remove(Button_Play);
             x.Controls.Remove(Button_Exit);
             x.Controls.Add(Label_x);
-            Label_x.Location = new Point(200, 500);
-            Label_x.Size = new Size(1000, 200);
             StoryProgress = 0;
+            InStory = true;
             LoadDialogue();
         }
         private static void LoadDialogue()
@@ -196,6 +237,15 @@ namespace Zetavers
                     return "Unknowingly, Akami grew up to 15 years old";
                 case 35:
                     return "End of the Chatper 0.";
+                case 36:
+                    x.Controls.Add(Title);
+                    x.Controls.Add(Button_Play);
+                    x.Controls.Add(Button_Exit);
+                    x.Controls.Remove(Label_x);
+                    StoryProgress = 0;
+                    Chapter = 1;
+                    InStory = false;
+                    return "";
                 default:
                     return "";
             }
