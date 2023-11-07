@@ -1,6 +1,6 @@
 # Zetavers
 <p align="center">
-  <img width="200" src="https://ax.reiz-0.repl.co/zetavers/Zetavers.ico">
+  <img width="200" src="https://ax.reiz-0.repl.co/2tk7cz/Zetavers.png">
 </p>
 
 ## Status
