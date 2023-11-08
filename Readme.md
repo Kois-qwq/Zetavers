@@ -4,7 +4,7 @@
 </p>
 
 ## Status
-[![Discord Server](https://discordapp.com/api/guilds/1128693214170333285/widget.png?style=shield)](https://discord.gg/BNZh884fwP)
+[![Discord Server](https://discordapp.com/api/guilds/1128693214170333285/widget.png?style=shield)](https://discord.gg/Eqdae9v9Gh)
 
 ## License
 Zetavers source code and the resources are licensed under the [MIT License](https://opensource.org/license/mit/).
