@@ -1,13 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Project">
     <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
     <Title>Zetavers</Title>
-    <ApplicationIcon>Zetavers.ico</ApplicationIcon>
+    <ApplicationIcon>Resources/Zetavers.ico</ApplicationIcon>
     <Version>0.0.0</Version>
     <FileVersion>0.0.0</FileVersion>
     <StartupObject>Zetavers.Program</StartupObject>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Resources" />
+  </ItemGroup>
 </Project>

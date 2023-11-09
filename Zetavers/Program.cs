@@ -24,11 +24,15 @@ namespace Zetavers
         [STAThread]
         public static void Main()
         {
+            
+
             x.Text = Base_Game_Name;
             x.Size = new Size(1920, 1080);
-            x.Icon = new Icon("Zetavers.ico");
+            x.Icon = new Icon("Resources/Zetavers.ico");
             x.FormBorderStyle = FormBorderStyle.None;
             x.WindowState = FormWindowState.Maximized;
+            x.BackgroundImage = Image.FromFile("Resources/Rainbow.png");
+            x.BackgroundImageLayout = ImageLayout.Zoom;
             x.KeyPreview = true;
             x.KeyDown += Form_KeyDown;
             x.MouseClick += Form_MouseClick;
@@ -45,7 +49,7 @@ namespace Zetavers
             Button_Play.Location = new Point(Form_CenterX - Button_Play.Size.Width / 2, Form_CenterY - Button_Play.Size.Height / 2 - Button_Play.Size.Height / 2);
             Button_Exit.Location = new Point(Form_CenterX - Button_Exit.Size.Width / 2, Form_CenterY - Button_Exit.Size.Height / 2 + Button_Exit.Size.Height / 2);
 
-            Title.Size = new Size(150, 20);
+            Title.Size = new Size(130, 20);
             Label_x.Size = new Size(1200, 200);
 
             Button_Play.Click += new EventHandler(Click_Play);
