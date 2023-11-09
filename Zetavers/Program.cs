@@ -15,6 +15,7 @@ namespace Zetavers
         public static Form x = new Form();
         public static Label Title = new Label();
         public static Label Label_x = new Label();
+        public static Label Label_Copyright = new Label();
         public static Button Button_Play = new Button();
         public static Button Button_Exit = new Button();
         public static int StoryProgress = 0;
@@ -24,14 +25,12 @@ namespace Zetavers
         [STAThread]
         public static void Main()
         {
-            
-
             x.Text = Base_Game_Name;
             x.Size = new Size(1920, 1080);
             x.Icon = new Icon("Resources/Zetavers.ico");
             x.FormBorderStyle = FormBorderStyle.None;
             x.WindowState = FormWindowState.Maximized;
-            x.BackgroundImage = Image.FromFile("Resources/Rainbow.png");
+            x.BackgroundImage = Image.FromFile("Resources\\Rainbow.png");
             x.BackgroundImageLayout = ImageLayout.Zoom;
             x.KeyPreview = true;
             x.KeyDown += Form_KeyDown;
@@ -43,19 +42,24 @@ namespace Zetavers
             Title.Text = Base_Game_Name;
             Button_Play.Text = "Play";
             Button_Exit.Text = "Exit";
-
-            Title.Location = new Point(Form_CenterX - Title.Width / 2, 0);
-            Label_x.Location = new Point(180, 600);
-            Button_Play.Location = new Point(Form_CenterX - Button_Play.Size.Width / 2, Form_CenterY - Button_Play.Size.Height / 2 - Button_Play.Size.Height / 2);
-            Button_Exit.Location = new Point(Form_CenterX - Button_Exit.Size.Width / 2, Form_CenterY - Button_Exit.Size.Height / 2 + Button_Exit.Size.Height / 2);
+            Label_Copyright.Text = "Copyright TeamORL and TeamDFSX. Do not distribution!";
 
             Title.Size = new Size(130, 20);
             Label_x.Size = new Size(1200, 200);
+            Label_Copyright.Size = new Size(315, 20);
 
-            Button_Play.Click += new EventHandler(Click_Play);
+            Title.Location = new Point(Form_CenterX - Title.Width / 2, 0);
+            Label_x.Location = new Point(180, 600);
+            Label_Copyright.Location = new Point(x.ClientSize.Width - 315, x.ClientSize.Height);
+            Button_Play.Location = new Point(Form_CenterX - Button_Play.Size.Width / 2, Form_CenterY - Button_Play.Size.Height / 2 - Button_Play.Size.Height / 2);
+            Button_Exit.Location = new Point(Form_CenterX - Button_Exit.Size.Width / 2, Form_CenterY - Button_Exit.Size.Height / 2 + Button_Exit.Size.Height / 2);
+
+            Button_Play.Click += new EventHandler(Play);
             Button_Exit.Click += new EventHandler(Exit);
+            Label_Copyright.Click += new EventHandler(Copyright_Click);
 
             x.Controls.Add(Title);
+            x.Controls.Add(Label_Copyright);
             x.Controls.Add(Button_Play);
             x.Controls.Add(Button_Exit);
 
@@ -113,22 +117,25 @@ namespace Zetavers
             {
                 if (InStory == true)
                 {
-                    if (StoryProgress != 0)
-                    {
-                        StoryProgress--;
-                        LoadDialogue();
-                    }
+                    StoryProgress++;
+                    LoadDialogue();
                 }
             }
+        }
+        private static void Copyright_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
         private static void Exit(object sender, EventArgs e)
         {
             Application.Exit();
         }
-        private static void Click_Play(object sender, EventArgs e)
+        private static void Play(object sender, EventArgs e)
         {
             if (Chapter == 0)
             {
+                x.BackgroundImage = null;
+                x.BackgroundImageLayout = ImageLayout.Zoom;
                 InitializeStory();
             }
         }
@@ -137,6 +144,7 @@ namespace Zetavers
             x.Controls.Remove(Title);
             x.Controls.Remove(Button_Play);
             x.Controls.Remove(Button_Exit);
+            x.Controls.Remove(Label_Copyright);
             x.Controls.Add(Label_x);
             StoryProgress = 0;
             InStory = true;
@@ -230,7 +238,10 @@ namespace Zetavers
                     x.Controls.Add(Title);
                     x.Controls.Add(Button_Play);
                     x.Controls.Add(Button_Exit);
+                    x.Controls.Add(Label_Copyright);
                     x.Controls.Remove(Label_x);
+                    x.BackgroundImage = Image.FromFile("Resources/Rainbow.png");
+                    x.BackgroundImageLayout = ImageLayout.Zoom;
                     StoryProgress = 0;
                     Chapter = 1;
                     InStory = false;
