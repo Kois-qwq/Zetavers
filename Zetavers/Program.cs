@@ -23,6 +23,7 @@ namespace Zetavers
         public static Label Label_A = new Label(); // Player Name
         public static Label Label_B = new Label(); // Fragments
         public static Label Label_C = new Label(); // Spart
+        public static Label Label_D = new Label(); // Level
         public static Button Button_Play = new Button();
         public static Button Button_Exit = new Button();
         public static Button Button_Return = new Button();
@@ -54,8 +55,9 @@ namespace Zetavers
             Button_Return.Text = "Return";
             Label_Copyright.Text = "Copyright TeamORL and TeamDFSX. Do not distribution!";
             Label_A.Text = User.PlayerName;
-            Label_B.Text = "Fragments: " + User.Fragments;
-            Label_C.Text = "Spart: " + User.Spart;
+            Label_B.Text = $"Fragments: {User.Fragments}";
+            Label_C.Text = $"Spart: {User.Spart}";
+            Label_D.Text = $"Lv. {User.Level} {User.XP}/{User.UpgradeXP} ({User.XPPercent}%)";
 
             Title.Size = new Size(130, 20);
             Label_x.Size = new Size(1200, 200);
@@ -70,6 +72,7 @@ namespace Zetavers
             Label_A.Location = new Point(0, 0);
             Label_B.Location = new Point(0, 20);
             Label_C.Location = new Point(0, 40);
+            Label_D.Location = new Point(0, 60);
 
             Button_Play.Click += new EventHandler(Play);
             Button_Exit.Click += new EventHandler(Exit);
@@ -83,6 +86,7 @@ namespace Zetavers
             x.Controls.Add(Label_A);
             x.Controls.Add(Label_B);
             x.Controls.Add(Label_C);
+            x.Controls.Add(Label_D);
 
             Application.Run(x);
         }
