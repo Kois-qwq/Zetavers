@@ -1,5 +1,4 @@
-using System;
-
+﻿using System;
 using static System.Math;
 
 namespace Zetavers.Game.User
@@ -14,6 +13,6 @@ namespace Zetavers.Game.User
         public static int Level;
 
         public static double UpgradeXP = Floor(150 * Sqrt(Level));
-        public static string XPPercent = Floor(XP / UpgradeXP * 100) + "%";
+        public static double XPPercent = Floor(XP / UpgradeXP * 100);
     }
 }
