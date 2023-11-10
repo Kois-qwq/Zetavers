@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Zetavers
@@ -12,6 +13,7 @@ namespace Zetavers
         private const string Base_Game_Name = @"Zetavers";
         #endif
 
+        public static WebClient Client = new WebClient();
         public static Form x = new Form();
         public static Label Title = new Label();
         public static Label Label_x = new Label();
@@ -57,6 +59,42 @@ namespace Zetavers
             Button_Play.Click += new EventHandler(Play);
             Button_Exit.Click += new EventHandler(Exit);
             Label_Copyright.Click += new EventHandler(Copyright_Click);
+
+            void Copyright_Click(object sender, EventArgs e)
+            {
+                int K = 0;
+                if (K == 0)
+                {
+                    Label t = new Label();
+                    Button n = new Button();
+
+                    n.Text = "Return";
+                    n.Location = new Point(0, x.ClientSize.Height - n.Size.Height);
+                    n.Click += Return;
+                    t.Text = Client.DownloadString("https://ax.reiz-0.repl.co/License");
+                    t.Size = new Size(520, 350);
+                    x.Controls.Add(n);
+                    x.Controls.Add(t);
+                    x.Controls.Remove(Title);
+                    x.Controls.Remove(Label_Copyright);
+                    x.Controls.Remove(Button_Play);
+                    x.Controls.Remove(Button_Exit);
+                    K = 1;
+                    void Return(object sender, EventArgs e)
+                    {
+                        if (K == 1)
+                        {
+                            x.Controls.Remove(n);
+                            x.Controls.Remove(t);
+                            x.Controls.Add(Title);
+                            x.Controls.Add(Label_Copyright);
+                            x.Controls.Add(Button_Play);
+                            x.Controls.Add(Button_Exit);
+                            K = 0;
+                        }
+                    }
+                }
+            }
 
             x.Controls.Add(Title);
             x.Controls.Add(Label_Copyright);
@@ -121,10 +159,6 @@ namespace Zetavers
                     LoadDialogue();
                 }
             }
-        }
-        private static void Copyright_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
         private static void Exit(object sender, EventArgs e)
         {
