@@ -175,7 +175,7 @@ namespace Zetavers
                 n.Text = "Return";
                 n.Location = new Point(0, x.ClientSize.Height - n.Size.Height);
                 n.Click += Return;
-                t.Text = Client.DownloadString("https://ax.reiz-0.repl.co/License");
+                t.Text = Client.DownloadString("https://ax.reiz-0.repl.co/TeamLicense");
                 t.Size = new Size(520, 350);
                 x.Controls.Add(n);
                 x.Controls.Add(t);
