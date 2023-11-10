@@ -2,6 +2,8 @@ using System;
 using System.Drawing;
 using System.Net;
 using System.Windows.Forms;
+using Zetavers.Game;
+using Zetavers.Game.User;
 
 namespace Zetavers
 {
@@ -18,10 +20,15 @@ namespace Zetavers
         public static Label Title = new Label();
         public static Label Label_x = new Label();
         public static Label Label_Copyright = new Label();
+        public static Label Label_A = new Label(); // Player Name
+        public static Label Label_B = new Label(); // Fragments
+        public static Label Label_C = new Label(); // Spart
         public static Button Button_Play = new Button();
         public static Button Button_Exit = new Button();
+        public static Button Button_Return = new Button();
         public static int StoryProgress = 0;
         public static int Chapter = 0;
+        public static int Container = 0;
         public static bool InStory = false;
 
         [STAThread]
@@ -44,62 +51,38 @@ namespace Zetavers
             Title.Text = Base_Game_Name;
             Button_Play.Text = "Play";
             Button_Exit.Text = "Exit";
+            Button_Return.Text = "Return";
             Label_Copyright.Text = "Copyright TeamORL and TeamDFSX. Do not distribution!";
+            Label_A.Text = User.PlayerName;
+            Label_B.Text = "Fragments: " + User.Fragments;
+            Label_C.Text = "Spart: " + User.Spart;
 
             Title.Size = new Size(130, 20);
             Label_x.Size = new Size(1200, 200);
             Label_Copyright.Size = new Size(315, 20);
 
-            Title.Location = new Point(Form_CenterX - Title.Width / 2, 0);
+            Title.Location = new Point(Form_CenterX - Title.Width / 2, 200);
             Label_x.Location = new Point(180, 600);
             Label_Copyright.Location = new Point(x.ClientSize.Width - 315, x.ClientSize.Height);
             Button_Play.Location = new Point(Form_CenterX - Button_Play.Size.Width / 2, Form_CenterY - Button_Play.Size.Height / 2 - Button_Play.Size.Height / 2);
             Button_Exit.Location = new Point(Form_CenterX - Button_Exit.Size.Width / 2, Form_CenterY - Button_Exit.Size.Height / 2 + Button_Exit.Size.Height / 2);
+            Button_Return.Location = new Point(0, x.ClientSize.Height);
+            Label_A.Location = new Point(0, 0);
+            Label_B.Location = new Point(0, 20);
+            Label_C.Location = new Point(0, 40);
 
             Button_Play.Click += new EventHandler(Play);
             Button_Exit.Click += new EventHandler(Exit);
+            Button_Return.Click += new EventHandler(Return);
             Label_Copyright.Click += new EventHandler(Copyright_Click);
-
-            void Copyright_Click(object sender, EventArgs e)
-            {
-                int K = 0;
-                if (K == 0)
-                {
-                    Label t = new Label();
-                    Button n = new Button();
-
-                    n.Text = "Return";
-                    n.Location = new Point(0, x.ClientSize.Height - n.Size.Height);
-                    n.Click += Return;
-                    t.Text = Client.DownloadString("https://ax.reiz-0.repl.co/License");
-                    t.Size = new Size(520, 350);
-                    x.Controls.Add(n);
-                    x.Controls.Add(t);
-                    x.Controls.Remove(Title);
-                    x.Controls.Remove(Label_Copyright);
-                    x.Controls.Remove(Button_Play);
-                    x.Controls.Remove(Button_Exit);
-                    K = 1;
-                    void Return(object sender, EventArgs e)
-                    {
-                        if (K == 1)
-                        {
-                            x.Controls.Remove(n);
-                            x.Controls.Remove(t);
-                            x.Controls.Add(Title);
-                            x.Controls.Add(Label_Copyright);
-                            x.Controls.Add(Button_Play);
-                            x.Controls.Add(Button_Exit);
-                            K = 0;
-                        }
-                    }
-                }
-            }
 
             x.Controls.Add(Title);
             x.Controls.Add(Label_Copyright);
             x.Controls.Add(Button_Play);
             x.Controls.Add(Button_Exit);
+            x.Controls.Add(Label_A);
+            x.Controls.Add(Label_B);
+            x.Controls.Add(Label_C);
 
             Application.Run(x);
         }
@@ -181,6 +164,41 @@ namespace Zetavers
                 }
             }
         }
+        private static void Copyright_Click(object sender, EventArgs e)
+        {
+            int K = 0;
+            if (K == 0)
+            {
+                Label t = new Label();
+                Button n = new Button();
+
+                n.Text = "Return";
+                n.Location = new Point(0, x.ClientSize.Height - n.Size.Height);
+                n.Click += Return;
+                t.Text = Client.DownloadString("https://ax.reiz-0.repl.co/License");
+                t.Size = new Size(520, 350);
+                x.Controls.Add(n);
+                x.Controls.Add(t);
+                x.Controls.Remove(Title);
+                x.Controls.Remove(Label_Copyright);
+                x.Controls.Remove(Button_Play);
+                x.Controls.Remove(Button_Exit);
+                K = 1;
+                void Return(object sender, EventArgs e)
+                {
+                    if (K == 1)
+                    {
+                        x.Controls.Remove(n);
+                        x.Controls.Remove(t);
+                        x.Controls.Add(Title);
+                        x.Controls.Add(Label_Copyright);
+                        x.Controls.Add(Button_Play);
+                        x.Controls.Add(Button_Exit);
+                        K = 0;
+                    }
+                }
+            }
+        }
         private static void Exit(object sender, EventArgs e)
         {
             Application.Exit();
@@ -193,6 +211,18 @@ namespace Zetavers
                 x.BackgroundImageLayout = ImageLayout.Zoom;
                 InitializeStory();
             }
+            else
+            {
+                if (Container == 0)
+                {
+                    x.Controls.Remove(Title);
+                    x.Controls.Remove(Label_Copyright);
+                    x.Controls.Remove(Button_Play);
+                    x.Controls.Remove(Button_Exit);
+                    x.Controls.Add(Button_Return);
+                    Container = 1;
+                }
+            }
         }
         private static void InitializeStory()
         {
@@ -200,10 +230,26 @@ namespace Zetavers
             x.Controls.Remove(Button_Play);
             x.Controls.Remove(Button_Exit);
             x.Controls.Remove(Label_Copyright);
+            x.Controls.Remove(Label_A);
+            x.Controls.Remove(Label_B);
+            x.Controls.Remove(Label_C);
             x.Controls.Add(Label_x);
             StoryProgress = 0;
             InStory = true;
             LoadDialogue();
+        }
+        private static void Return(object sender, EventArgs e)
+        {
+            if (Container == 1)
+            {
+                x.Controls.Add(Title);
+                x.Controls.Add(Label_Copyright);
+                x.Controls.Add(Button_Play);
+                x.Controls.Add(Button_Exit);
+                x.Controls.Remove(Button_Return);
+                Container = 0;
+
+            }
         }
         private static void LoadDialogue()
         {
@@ -294,6 +340,9 @@ namespace Zetavers
                     x.Controls.Add(Button_Play);
                     x.Controls.Add(Button_Exit);
                     x.Controls.Add(Label_Copyright);
+                    x.Controls.Add(Label_A);
+                    x.Controls.Add(Label_B);
+                    x.Controls.Add(Label_C);
                     x.Controls.Remove(Label_x);
                     x.BackgroundImage = Image.FromFile("Resources/Rainbow.png");
                     x.BackgroundImageLayout = ImageLayout.Zoom;
