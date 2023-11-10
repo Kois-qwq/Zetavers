@@ -62,6 +62,7 @@ namespace Zetavers
             Title.Size = new Size(130, 20);
             Label_x.Size = new Size(1200, 200);
             Label_Copyright.Size = new Size(315, 20);
+            Label_D.Size = new Size(125, 20);
 
             Title.Location = new Point(Form_CenterX - Title.Width / 2, 200);
             Label_x.Location = new Point(180, 600);
@@ -187,6 +188,10 @@ namespace Zetavers
                 x.Controls.Remove(Label_Copyright);
                 x.Controls.Remove(Button_Play);
                 x.Controls.Remove(Button_Exit);
+                x.Controls.Remove(Label_A);
+                x.Controls.Remove(Label_B);
+                x.Controls.Remove(Label_C);
+                x.Controls.Remove(Label_D);
                 K = 1;
                 void Return(object sender, EventArgs e)
                 {
@@ -198,6 +203,10 @@ namespace Zetavers
                         x.Controls.Add(Label_Copyright);
                         x.Controls.Add(Button_Play);
                         x.Controls.Add(Button_Exit);
+                        x.Controls.Add(Label_A);
+                        x.Controls.Add(Label_B);
+                        x.Controls.Add(Label_C);
+                        x.Controls.Add(Label_D);
                         K = 0;
                     }
                 }
@@ -237,6 +246,7 @@ namespace Zetavers
             x.Controls.Remove(Label_A);
             x.Controls.Remove(Label_B);
             x.Controls.Remove(Label_C);
+            x.Controls.Remove(Label_D);
             x.Controls.Add(Label_x);
             StoryProgress = 0;
             InStory = true;
@@ -347,6 +357,7 @@ namespace Zetavers
                     x.Controls.Add(Label_A);
                     x.Controls.Add(Label_B);
                     x.Controls.Add(Label_C);
+                    x.Controls.Add(Label_D);
                     x.Controls.Remove(Label_x);
                     x.BackgroundImage = Image.FromFile("Resources/Rainbow.png");
                     x.BackgroundImageLayout = ImageLayout.Zoom;
