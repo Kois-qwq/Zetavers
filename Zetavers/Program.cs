@@ -139,6 +139,27 @@ namespace Zetavers
                     }
                 }
             }
+
+            if (e.KeyCode == Keys.Left)
+            {
+                if (InStory == true)
+                {
+                    if (StoryProgress != 0)
+                    {
+                        StoryProgress--;
+                        LoadDialogue();
+                    }
+                }
+            }
+
+            if (e.KeyCode == Keys.Right)
+            {
+                if (InStory == true)
+                {
+                    StoryProgress++;
+                    LoadDialogue();
+                }
+            }
         }
         private static void Form_MouseClick(object sender, MouseEventArgs e)
         {
