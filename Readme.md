@@ -6,9 +6,11 @@
 ## Status
 [![Discord Server](https://discordapp.com/api/guilds/1128693214170333285/widget.png?style=shield)](https://discord.gg/Eqdae9v9Gh)
 
-## Links
-Offical Website -> https://ax.reiz-0.repl.co/zetavers/index.html
+## .NET Desktop Runtime
+Please download the [.NET Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) to run Zetavers.
 
+## Links
+Offical Website -> https://ax.reiz-0.repl.co/zetavers/index.html \
 Chart Editor -> https://ax.reiz-0.repl.co/zetavers/editor/editor.html
 
 ## License
